@@ -1,0 +1,55 @@
+---
+- name: Gather OS facts
+  when:
+    - ansible_distribution is not defined or
+      ansible_distribution_major_version is not defined or
+      ansible_distribution_release is not defined or
+      ansible_os_family is not defined
+  ansible.builtin.setup:
+    gather_subset:
+      - '!all'
+      - '!min'
+      - distribution
+      - distribution_major_version
+      - distribution_release
+      - os_family
+
+- name: Validate OS family
+  ansible.builtin.assert:
+    that:
+      - ansible_os_family in _packer_supported_os_families
+    fail_msg: "This role does not support the '{{ ansible_os_family }}' OS family."
+    success_msg: "This role supports the '{{ ansible_os_family }}' OS family.  Checking specifics."
+
+- name: Include OS family specific variables
+  ansible.builtin.include_vars: "os_family/{{ ansible_os_family }}.yml"
+
+- name: Validate Debian-based OS
+  when:
+    - ansible_os_family == 'Debian'
+  block:
+    - name: Validate OS distribution
+      ansible.builtin.assert:
+        that:
+          - ansible_distribution in _packer_supported_distributions
+        fail_msg: "This role does not support the '{{ ansible_distribution }}' distribution."
+        success_msg: "This role supports the '{{ ansible_distribution }}' distribution.  Checking release."
+
+    - name: Include distribution specific variables
+      ansible.builtin.include_vars: "distribution/{{ ansible_distribution }}.yml"
+
+    - name: Validate OS distribution release
+      ansible.builtin.assert:
+        that:
+          - ansible_distribution_release in _packer_supported_releases
+        fail_msg: "This role does not support '{{ ansible_distribution }} {{ ansible_distribution_release }}'."
+        success_msg: "This role supports '{{ ansible_distribution }} {{ ansible_distribution_release }}'."
+
+- name: Validate OS distribution major version
+  when:
+    - ansible_os_family == 'RedHat'
+  ansible.builtin.assert:
+    that:
+      - ansible_distribution_major_version in _packer_supported_major_versions
+    fail_msg: "This role does not support EL {{ ansible_distribution_major_version }}."
+    success_msg: "This role supports EL {{ ansible_distribution_major_version }}."

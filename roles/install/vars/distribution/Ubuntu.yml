@@ -1,0 +1,5 @@
+---
+_packer_supported_releases:
+  - focal
+  - jammy
+  - noble

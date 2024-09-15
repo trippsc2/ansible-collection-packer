@@ -1,0 +1,18 @@
+---
+- name: Install HashiCorp GPG key
+  become: true
+  ansible.builtin.rpm_key:
+    key: https://rpm.releases.hashicorp.com/gpg
+    state: present
+
+- name: Add HashiCorp DNF repository
+  become: true
+  ansible.builtin.yum_repository:
+    file: hashicorp
+    name: hashicorp
+    description: HashiCorp Stable - $basearch
+    baseurl: https://rpm.releases.hashicorp.com/RHEL/$releasever/$basearch/stable
+    enabled: true
+    gpgcheck: true
+    gpgkey: https://rpm.releases.hashicorp.com/gpg
+    state: present

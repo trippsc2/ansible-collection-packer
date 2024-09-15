@@ -1,0 +1,12 @@
+---
+packer_run_init: true
+packer_debug: false
+packer_except: []
+packer_force: false
+packer_on_error: cleanup
+packer_only: []
+packer_parallel_builds: 0
+packer_timestamp_ui: false
+packer_warn_on_undeclared_var: false
+packer_var_files: []
+packer_vars: {}

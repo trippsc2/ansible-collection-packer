@@ -1,0 +1,34 @@
+---
+- name: Prepare
+  hosts:
+    - subjects
+  roles:
+    - role: trippsc2.packer.install
+  tasks:
+    - name: Install Docker
+      become: true
+      ansible.builtin.package:
+        name:
+          - docker
+        state: present
+
+    - name: Create Packer working directory
+      become: true
+      ansible.builtin.file:
+        path: "{{ packer_working_directory }}"
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: '0755'
+      
+    - name: Copy Packer HCL file
+      loop:
+        - test.pkr.hcl
+        - test.pkrvars.hcl
+      become: true
+      ansible.builtin.copy:
+        src: "files/{{ item }}"
+        dest: "{{ packer_working_directory }}/{{ item }}"
+        owner: vagrant
+        group: vagrant
+        mode: '0644'

@@ -1,0 +1,103 @@
+---
+argument_specs:
+  main:
+    short_description: Build HashiCorp Packer Image
+    description:
+      - This role builds HashiCorp Packer image.
+    author:
+      - Jim Tarpley
+    options:
+      packer_working_directory:
+        type: path
+        required: true
+        description:
+          - The directory where Packer files are stored.
+      packer_run_init:
+        type: bool
+        required: false
+        default: true
+        description:
+          - Whether to run the init step before running the build.
+      packer_plugin_tmp_dir:
+        type: path
+        required: false
+        description:
+          - The directory where Packer plugins are stored temporarily during install.
+          - If not provided, the default location is used.
+          - See https://developer.hashicorp.com/packer/docs/configure for reference
+      packer_debug:
+        type: bool
+        required: false
+        default: false
+        description:
+          - Whether to enable debug mode.
+          - See https://developer.hashicorp.com/packer/docs/commands/build#debug for reference
+      packer_except:
+        type: list
+        required: false
+        default: []
+        description:
+          - A list of Packer builders to exclude.
+          - See https://developer.hashicorp.com/packer/docs/commands/build#except-foo-bar-baz for reference
+      packer_force:
+        type: bool
+        required: false
+        default: false
+        description:
+          - Whether to force building, even if artifacts already exist.
+          - See https://developer.hashicorp.com/packer/docs/commands/build#force for reference
+      packer_on_error:
+        type: str
+        required: false
+        default: cleanup
+        choices:
+          - abort
+          - cleanup
+          - run-cleanup-provisioner
+        description:
+          - Defines the behavior when an error occurs.
+          - See https://developer.hashicorp.com/packer/docs/commands/build#on-error-cleanup for reference
+      packer_only:
+        type: list
+        required: false
+        default: []
+        description:
+          - A list of Packer builders to include.
+          - See https://developer.hashicorp.com/packer/docs/commands/build#only-foo-bar-baz for reference
+      packer_parallel_builds:
+        type: int
+        required: false
+        default: 0
+        description:
+          - The number of builds to run in parallel.
+          - If set to `0`, all builds will run in parallel.
+          - See https://developer.hashicorp.com/packer/docs/commands/build#parallel-builds-n for reference
+      packer_timestamp_ui:
+        type: bool
+        required: false
+        default: false
+        description:
+          - Whether to show timestamps in the UI.
+          - See https://developer.hashicorp.com/packer/docs/commands/build#timestamp-ui for reference
+      packer_warn_on_undeclared_var:
+        type: bool
+        required: false
+        default: false
+        description:
+          - Whether to warn on undeclared variables.
+          - See https://developer.hashicorp.com/packer/docs/commands/build#warn-on-undeclared-var for reference
+      packer_var_files:
+        type: list
+        required: false
+        default: []
+        description:
+          - A list of paths to Packer variable files to include.
+          - These paths can be supplied as absolute paths.
+          - See https://developer.hashicorp.com/packer/docs/commands/build#var-file for reference
+      packer_vars:
+        type: dict
+        required: false
+        default: {}
+        description:
+          - A dictionary of Packer variables to include.
+          - See https://developer.hashicorp.com/packer/docs/commands/build#var for reference

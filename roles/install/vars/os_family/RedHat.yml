@@ -1,0 +1,4 @@
+---
+_packer_supported_major_versions:
+  - '8'
+  - '9'

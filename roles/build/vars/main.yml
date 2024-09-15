@@ -1,0 +1,43 @@
+---
+_packer_command_prefix:
+  - packer
+  - build
+_packer_debug_command_args: >-
+  {{ ['-debug'] if packer_debug else [] }}
+_packer_except_command_args: >-
+  {{ ['-except=' + packer_except | join(',')] if packer_except | length > 0 else [] }}
+_packer_force_command_args: >-
+  {{ ['-force'] if packer_force else [] }}
+_packer_on_error_command_args:
+  - "-on-error={{ packer_on_error }}"
+_packer_only_command_args: >-
+  {{ ['-only=' + packer_only | join(',')] if packer_only | length > 0 else [] }}
+_packer_parallel_builds_command_args:
+  - "-parallel-builds={{ packer_parallel_builds }}"
+_packer_timestamp_ui_command_args: >-
+  {{ ['-timestamp-ui'] if packer_timestamp_ui else [] }}
+_packer_warn_on_undeclared_var_command_args: >-
+  {{ ['-warn-on-undeclared-var'] if packer_warn_on_undeclared_var else [] }}
+_packer_var_files_command_args: >-
+  {{ packer_var_files | map('regex_replace', '^(.*)$', '-var-file="\1"') | list }}
+_packer_var_command_args: |-
+    [
+    {% for key, value in packer_vars.items() %}
+      "-var",
+      "\"{{ key }}={{ value }}\""{{ ',' if not loop.last }}
+    {% endfor %}
+    ]
+
+_packer_command: >-
+  {{ (_packer_command_prefix +
+      _packer_debug_command_args +
+      _packer_except_command_args +
+      _packer_force_command_args +
+      _packer_on_error_command_args +
+      _packer_only_command_args +
+      _packer_parallel_builds_command_args +
+      _packer_timestamp_ui_command_args +
+      _packer_warn_on_undeclared_var_command_args +
+      _packer_var_files_command_args +
+      _packer_var_command_args +
+      [packer_working_directory]) | join(' ') }}

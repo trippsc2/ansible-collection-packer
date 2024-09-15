@@ -1,0 +1,4 @@
+---
+_packer_supported_os_families:
+  - Debian
+  - RedHat

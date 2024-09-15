@@ -1,0 +1,42 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+  cachier: machine
+  parallel: true
+platforms:
+  - name: linux
+    box: jtarpley/${MOLECULE_BOX:-rocky8_cis}
+    memory: 2048
+    cpus: 2
+    provider_options:
+      default_prefix: packer_install_
+    groups:
+      - subjects
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      subjects:
+        packer_working_directory: /home/vagrant/packer
+        packer_plugin_tmp_dir: /home/vagrant
+verifier:
+  name: ansible
+scenario:
+  test_sequence:
+    - dependency
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    #- idempotence
+    # Removed idempotence check, because this scenario cannot be made idempotent.
+    - side_effect
+    - verify
+    - cleanup
+    - destroy

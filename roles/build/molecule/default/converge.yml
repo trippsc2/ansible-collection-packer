@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts:
+    - subjects
+  roles:
+    - role: trippsc2.packer.build
+      vars:
+        packer_var_files:
+          - "{{ packer_working_directory }}/test.pkrvars.hcl"
+    - role: trippsc2.packer.build
+      vars:
+        packer_vars:
+          image: 'index.docker.io/library/ubuntu:20.04'

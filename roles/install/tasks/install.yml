@@ -1,0 +1,7 @@
+---
+- name: Install HashiCorp Packer package
+  become: true
+  ansible.builtin.package:
+    name:
+      - packer
+    state: present
