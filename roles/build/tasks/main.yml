@@ -5,7 +5,7 @@
   environment:
     TMPDIR: "{{ packer_plugin_tmp_dir | default('') }}"
   ansible.builtin.command: |-
-    packer init {{ packer_working_directory }}
+    {{ packer_executable_path }} init {{ packer_working_directory }}
   changed_when: false
 
 - name: Run Packer build

@@ -1,6 +1,6 @@
 ---
 _packer_command_prefix:
-  - packer
+  - "{{ packer_executable_path }}"
   - build
 _packer_debug_command_args: >-
   {{ ['-debug'] if packer_debug else [] }}

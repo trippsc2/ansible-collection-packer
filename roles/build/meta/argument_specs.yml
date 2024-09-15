@@ -7,6 +7,12 @@ argument_specs:
     author:
       - Jim Tarpley
     options:
+      packer_executable_path:
+        type: path
+        required: false
+        default: /usr/bin/packer
+        description:
+          - The path to the Packer executable.
       packer_working_directory:
         type: path
         required: true

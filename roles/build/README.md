@@ -1,7 +1,7 @@
 <!-- BEGIN_ANSIBLE_DOCS -->
 
 # Ansible Role: trippsc2.packer.build
-Version: 1.0.0
+Version: 1.1.0
 
 This role builds HashiCorp Packer image.
 
@@ -20,6 +20,7 @@ None.
 ## Role Arguments
 |Option|Description|Type|Required|Choices|Default|
 |---|---|---|---|---|---|
+| packer_executable_path | <p>The path to the Packer executable.</p> | path | no |  | /usr/bin/packer |
 | packer_working_directory | <p>The directory where Packer files are stored.</p> | path | yes |  |  |
 | packer_run_init | <p>Whether to run the init step before running the build.</p> | bool | no |  | true |
 | packer_plugin_tmp_dir | <p>The directory where Packer plugins are stored temporarily during install.</p><p>If not provided, the default location is used.</p><p>See https://developer.hashicorp.com/packer/docs/configure for reference</p> | path | no |  |  |
