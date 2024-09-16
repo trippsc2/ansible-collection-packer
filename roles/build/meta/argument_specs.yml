@@ -107,6 +107,12 @@ argument_specs:
         description:
           - A dictionary of Packer variables to include.
           - See https://developer.hashicorp.com/packer/docs/commands/build#var for reference
+      packer_log_path:
+        type: path
+        required: false
+        description:
+          - The path to the Packer log file.
+          - If not provided, logging will not be enabled.
       packer_build_retries:
         type: int
         required: false

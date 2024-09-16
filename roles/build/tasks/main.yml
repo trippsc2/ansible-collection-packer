@@ -9,6 +9,9 @@
   changed_when: false
 
 - name: Run Packer build
+  environment:
+    PACKER_LOG: "{{ _packer_log }}"
+    PACKER_LOG_PATH: "{{ packer_log_path | default('') }}"
   ansible.builtin.command: |-
     {{ _packer_command }}
   changed_when: true

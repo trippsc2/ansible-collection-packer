@@ -41,3 +41,5 @@ _packer_command: >-
       _packer_var_files_command_args +
       _packer_var_command_args +
       [packer_working_directory]) | join(' ') }}
+
+_packer_log: "{{ packer_log_path is defined | ternary('1', '0') }}"
