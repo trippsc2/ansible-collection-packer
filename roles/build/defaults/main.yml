@@ -1,6 +1,7 @@
 ---
 packer_executable_path: /usr/bin/packer
 packer_run_init: true
+
 packer_debug: false
 packer_except: []
 packer_force: false
@@ -11,3 +12,6 @@ packer_timestamp_ui: false
 packer_warn_on_undeclared_var: false
 packer_var_files: []
 packer_vars: {}
+
+packer_build_retries: 0
+packer_build_retry_delay: 5

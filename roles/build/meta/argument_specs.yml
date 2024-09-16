@@ -107,3 +107,15 @@ argument_specs:
         description:
           - A dictionary of Packer variables to include.
           - See https://developer.hashicorp.com/packer/docs/commands/build#var for reference
+      packer_build_retries:
+        type: int
+        required: false
+        default: 0
+        description:
+          - The number of times to retry a build.
+      packer_build_retry_delay:
+        type: int
+        required: false
+        default: 5
+        description:
+          - The number of seconds to wait between retries.

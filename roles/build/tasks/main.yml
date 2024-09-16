@@ -12,3 +12,5 @@
   ansible.builtin.command: |-
     {{ _packer_command }}
   changed_when: true
+  retries: "{{ packer_build_retries }}"
+  delay: "{{ packer_build_retry_delay }}"
